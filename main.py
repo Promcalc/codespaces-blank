@@ -42,6 +42,20 @@ def calc03():
     # Выводим результат
     print(f"{formatted_number} ≈ {fraction.numerator}/{fraction.denominator}")
 
+def calc04():
+    # Запрашиваем у пользователя ввод количества минут
+    total_minutes = int(input("Введите количество минут: "))
+
+    # Вычисляем количество дней, часов и оставшихся минут
+    days = total_minutes // (60 * 24)  # 1 день = 1440 минут
+    hours = (total_minutes % (60 * 24)) // 60  # 1 час = 60 минут
+    minutes = total_minutes % 60  # Оставшиеся минуты
+
+    # Форматируем результат
+    result = f"{days:02}:{hours:02}:{minutes:02}"
+
+    # Выводим результат
+    print(f"Результат: {result}")
 
 if __name__ == "__main__":
-    calc03()
+    calc04()
