@@ -92,5 +92,84 @@ def calc06():
     else:
         print("Некорректный выбор. Пожалуйста, попробуйте еще раз.")
 
+
+import random
+
+import random
+
+def display_sticks(count):
+    print(f"На столе {count} палочек.")
+
+def player_move(player_name, sticks):
+    while True:
+        try:
+            taken = int(input(f"{player_name}, сколько палочек вы хотите взять (1, 2 или 3)? "))
+            if taken in [1, 2, 3] and taken <= sticks:
+                return taken
+            else:
+                print("Неверный ввод. Попробуйте взять 1, 2 или 3 палочки, но не больше оставшихся.")
+        except ValueError:
+            print("Пожалуйста, введите число.")
+
+def computer_move(sticks):
+    # Стратегия: оставить количество палочек кратным 4 (если это возможно)
+    if sticks > 4:
+        taken = (sticks - 1) % 4
+        if taken == 0:
+            taken = random.randint(1, 3)  # Если не удалось, берем случайное количество
+    else:
+        taken = min(3, sticks)  # Берем максимум 3 палочки
+    print(f"Компьютер берет {taken} палочек.")
+    return taken
+
+def game01():
+    # Начальное количество палочек
+    total_sticks = random.randint(17, 29)
+    display_sticks(total_sticks)
+
+    # Выбор режима игры
+    game_mode = input("Выберите режим игры: 1 - Два игрока, 2 - Игрок против компьютера: ")
+    if game_mode not in ['1', '2']:
+        print("Некорректный выбор. Игра завершена.")
+        return
+
+    # Определяем, кто ходит первым
+    if random.choice([True, False]):
+        player1_name = "Игрок 1"
+        player2_name = "Игрок 2" if game_mode == '1' else "Компьютер"
+        first_player = player1_name
+    else:
+        player1_name = "Компьютер" if game_mode == '2' else "Игрок 2"
+        player2_name = "Игрок 1"
+        first_player = player1_name
+
+    print(f"{first_player} начинает первым!")
+
+    current_player = 1 if first_player == player1_name else 2
+
+    while total_sticks > 0:
+        if current_player == 1:
+            if player2_name == "Компьютер":
+                taken = computer_move(total_sticks)
+            else:
+                taken = player_move(player1_name, total_sticks)
+        else:
+            taken = player_move(player2_name, total_sticks)
+
+        total_sticks -= taken
+
+        display_sticks(total_sticks)
+
+        # Проверка на проигрыш
+        if total_sticks == 0:
+            if current_player == 1:
+                print(f"{player1_name} взял последнюю палочку и проиграл!")
+            else:
+                print(f"{player2_name} взял последнюю палочку и проиграл!")
+            break
+
+        # Смена игрока
+        current_player = 2 if current_player == 1 else 1
+
 if __name__ == "__main__":
-    calc06()
+    game01()
