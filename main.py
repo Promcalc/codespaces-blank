@@ -68,5 +68,29 @@ def calc05():
         print(f"{number} не делится на 5 без остатка.")
 
 
+def kilometers_to_miles(km):
+    return km * 0.621371
+
+def miles_to_kilometers(miles):
+    return miles / 0.621371
+
+def calc06():
+    print("Выберите действие:")
+    print("1. Перевести километры в мили")
+    print("2. Перевести мили в километры")
+
+    choice = input("Введите номер действия (1 или 2): ")
+
+    if choice == '1':
+        km = float(input("Введите расстояние в километрах: "))
+        miles = kilometers_to_miles(km)
+        print(f"{km} километров равно {miles:.2f} миль.")
+    elif choice == '2':
+        miles = float(input("Введите расстояние в милях: "))
+        km = miles_to_kilometers(miles)
+        print(f"{miles} миль равно {km:.2f} километров.")
+    else:
+        print("Некорректный выбор. Пожалуйста, попробуйте еще раз.")
+
 if __name__ == "__main__":
-    calc05()
+    calc06()
