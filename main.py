@@ -1,3 +1,6 @@
+from fractions import Fraction
+
+
 def calc01():
     # Запрашиваем у пользователя ввод числа n
     n = float(input("Введите число n: "))
@@ -26,5 +29,19 @@ def calc02():
         except ValueError:
             print(f"'{num_str}' не является числом. Пропускаем.")
 
+def calc03():
+    # Запрашиваем у пользователя ввод вещественного числа
+    number = float(input("Введите вещественное число: "))
+    
+    # Находим наименьшую обыкновенную дробь, приближенную к введенному числу
+    fraction = Fraction(number).limit_denominator()  # Округляем до ближайшей дроби
+    
+    # Форматируем число с округлением до двух знаков после запятой
+    formatted_number = f"{number:.2f}"
+    
+    # Выводим результат
+    print(f"{formatted_number} ≈ {fraction.numerator}/{fraction.denominator}")
+
+
 if __name__ == "__main__":
-    calc02()
+    calc03()
